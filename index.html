@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TH Auto Repasse | Intermediação de Veículos para Lojistas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:"Poppins",sans-serif;background:#fff;color:#1a1a1a;overflow-x:hidden;}
+body{font-family:"Inter",sans-serif;background:#fff;color:#1a1a1a;overflow-x:hidden;}
 a{text-decoration:none;}
 nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;gap:10px;}
@@ -20,14 +20,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .nav-links{display:flex;gap:28px;}
 .nav-links a{font-size:13px;font-weight:500;color:#555;transition:color .2s;}
 .nav-links a:hover{color:#C9A84C;}
-.btn-comunidade{display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:700;font-size:13px;padding:11px 22px;border-radius:50px;transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.35);border:none;cursor:pointer;font-family:"Poppins",sans-serif;}
+.btn-comunidade{display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:700;font-size:13px;padding:11px 22px;border-radius:50px;transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.35);border:none;cursor:pointer;font-family:"Montserrat",sans-serif;}
 .btn-comunidade:hover{background:#20b858;transform:translateY(-1px);}
 .btn-comunidade svg{width:16px;height:16px;flex-shrink:0;}
 .hero{margin-top:72px;min-height:88vh;background:linear-gradient(rgba(0,0,0,.52),rgba(0,0,0,.62)),url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=80") center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 5%;}
 .hero h1{font-size:clamp(28px,5vw,60px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:18px;text-shadow:0 2px 20px rgba(0,0,0,.4);}
 .hero h1 span{color:#C9A84C;}
 .hero p{font-size:clamp(13px,1.8vw,17px);color:rgba(255,255,255,.85);max-width:580px;line-height:1.7;margin-bottom:36px;}
-.hero-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-weight:700;font-size:15px;padding:16px 40px;border-radius:50px;box-shadow:0 8px 32px rgba(37,211,102,.5);transition:all .25s;border:none;cursor:pointer;font-family:"Poppins",sans-serif;}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-weight:700;font-size:15px;padding:16px 40px;border-radius:50px;box-shadow:0 8px 32px rgba(37,211,102,.5);transition:all .25s;border:none;cursor:pointer;font-family:"Montserrat",sans-serif;}
 .hero-btn:hover{background:#20b858;transform:translateY(-3px);}
 .selos{padding:32px 5%;background:#f8f8f8;border-bottom:1px solid #ececec;}
 .selos-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;}
@@ -86,9 +86,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .car-fipe{font-size:12px;color:#999;text-decoration:line-through;font-weight:500;}
 .car-price small{display:block;font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;}
 .car-price strong{font-size:18px;font-weight:800;color:#C9A84C;line-height:1.2;}
-.car-neg{background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-size:12px;font-weight:700;padding:10px 22px;border-radius:50px;transition:all .2s;border:none;cursor:pointer;font-family:"Poppins",sans-serif;}
+.car-neg{background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-size:12px;font-weight:700;padding:10px 22px;border-radius:50px;transition:all .2s;border:none;cursor:pointer;font-family:"Montserrat",sans-serif;}
 .car-neg:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4);}
-.car-economia{display:none;}
+.hero h1,.hc-content h1,.quem-text h2,.depos h2,.estoque-header h2,.porque h2,.contato-inner h2,.faq h2{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-1px;}
+.nav-logo-text strong{font-family:"Montserrat",sans-serif;font-weight:800;}
+.car-nome{font-family:"Montserrat",sans-serif;font-weight:800;}
+.hc-content h1{letter-spacing:-2px;}
+.btn-comunidade,.hc-btn,.hero-btn,.car-neg,.banner-btn,.form-btn,.btn-sim,.admin-btn{font-family:"Montserrat",sans-serif!important;font-weight:700!important;letter-spacing:.3px;}
 .porque{padding:80px 5%;background:#f8f8f8;}
 .porque h2{text-align:center;font-size:clamp(24px,3vw,38px);font-weight:800;margin-bottom:48px;}
 .porque h2 span{color:#C9A84C;}
@@ -109,20 +113,90 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .ci-icon{font-size:22px;flex-shrink:0;}
 .ci-item strong{font-size:14px;color:#1a1a1a;font-weight:700;display:block;}
 .ci-item span{font-size:13px;color:#777;}
-.btn-entrar-comunidade{display:flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#fff;font-weight:700;font-size:15px;padding:18px;border-radius:14px;margin-top:8px;box-shadow:0 8px 28px rgba(37,211,102,.4);transition:all .2s;border:none;cursor:pointer;font-family:"Poppins",sans-serif;width:100%;}
+.btn-entrar-comunidade{display:flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#fff;font-weight:700;font-size:15px;padding:18px;border-radius:14px;margin-top:8px;box-shadow:0 8px 28px rgba(37,211,102,.4);transition:all .2s;border:none;cursor:pointer;font-family:"Montserrat",sans-serif;width:100%;}
 .btn-entrar-comunidade:hover{background:#20b858;transform:translateY(-2px);}
 .form-box{background:#f8f8f8;border-radius:20px;padding:36px;border:1px solid #ececec;}
 .form-box h3{font-size:20px;font-weight:800;color:#1a1a1a;margin-bottom:6px;}
 .form-box p{font-size:13px;color:#999;margin-bottom:24px;}
 .fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
 .fg label{font-size:10px;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;}
-.fg input,.fg select,.fg textarea{border:1.5px solid #e0e0e0;border-radius:10px;padding:12px 16px;font-family:"Poppins",sans-serif;font-size:13px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .2s;appearance:none;}
+.fg input,.fg select,.fg textarea{border:1.5px solid #e0e0e0;border-radius:10px;padding:12px 16px;font-family:"Montserrat",sans-serif;font-size:13px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .2s;appearance:none;}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#C9A84C;}
 .fg textarea{min-height:90px;resize:vertical;}
 .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-btn{width:100%;background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Poppins",sans-serif;font-weight:700;font-size:14px;padding:15px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(201,168,76,.4);transition:all .2s;}
+.form-btn{width:100%;background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Montserrat",sans-serif;font-weight:700;font-size:14px;padding:15px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(201,168,76,.4);transition:all .2s;}
 .form-btn:hover{transform:translateY(-2px);}
 .form-note{font-size:11px;color:#aaa;text-align:center;margin-top:10px;}
+/* HERO CARROSSEL */
+.hero-carousel{position:relative;width:100%;overflow:hidden;margin-top:72px;}
+.hc-track{display:flex;transition:transform 0.6s cubic-bezier(.77,0,.175,1);}
+.hc-slide{min-width:100%;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5%;}
+.hc-content{max-width:700px;}
+.hc-tag{display:inline-block;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.5);color:#C9A84C;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;border-radius:50px;margin-bottom:20px;}
+.hc-content h1{font-size:clamp(28px,5vw,58px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,.5);}
+.hc-content h1 span{color:#C9A84C;}
+.hc-content p{font-size:clamp(13px,1.8vw,17px);color:rgba(255,255,255,.8);max-width:540px;margin:0 auto 36px;line-height:1.7;}
+.hc-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-weight:700;font-size:15px;padding:16px 40px;border-radius:50px;box-shadow:0 8px 32px rgba(37,211,102,.5);transition:all .25s;border:none;cursor:pointer;font-family:"Montserrat",sans-serif;}
+.hc-btn:hover{background:#20b858;transform:translateY(-3px);}
+.hc-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+.hc-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
+.hc-dot.active{background:#C9A84C;width:28px;border-radius:4px;}
+.hc-prev,.hc-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);backdrop-filter:blur(4px);color:#fff;border:1px solid rgba(255,255,255,.2);width:48px;height:48px;border-radius:50%;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all .2s;}
+.hc-prev{left:20px;}
+.hc-next{right:20px;}
+.hc-prev:hover,.hc-next:hover{background:rgba(201,168,76,.4);border-color:#C9A84C;}
+@media(max-width:600px){.hc-slide{min-height:70vh;}.hc-content h1{font-size:22px;}.hc-prev,.hc-next{display:none;}}
+/* FAIXA DE MARCAS */
+.marcas-section{background:#1a1a1a;padding:18px 0;overflow:hidden;}
+.marcas-track{overflow:hidden;white-space:nowrap;}
+.marcas-inner{display:inline-flex;align-items:center;gap:0;animation:marcasScroll 25s linear infinite;}
+@keyframes marcasScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.marca-item{font-family:"Montserrat",sans-serif;font-size:12px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,.5);padding:0 20px;white-space:nowrap;}
+.marca-sep{color:#C9A84C;font-size:16px;font-weight:900;}
+.hc-autoridade{font-size:12px;color:rgba(255,255,255,.6);margin-top:-20px;margin-bottom:20px;letter-spacing:.5px;}
+/* VISÃO MISSÃO VALORES */
+.vmv-section{padding:70px 5%;background:#fff;}
+.vmv-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.vmv-card{background:#fff;border:2px solid #f0e8d0;border-radius:16px;padding:36px 28px;text-align:center;transition:all .3s;box-shadow:0 4px 20px rgba(201,168,76,.08);}
+.vmv-card:hover{border-color:#C9A84C;transform:translateY(-4px);box-shadow:0 8px 32px rgba(201,168,76,.15);}
+.vmv-destaque{border-color:#C9A84C;background:linear-gradient(135deg,#fffdf5,#fff9e6);}
+.vmv-icon{font-size:36px;margin-bottom:16px;}
+.vmv-card h3{font-family:"Montserrat",sans-serif;font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:12px;}
+.vmv-card p{font-size:13px;color:#666;line-height:1.8;}
+@media(max-width:700px){.vmv-grid{grid-template-columns:1fr;}}
+/* VAGAS */
+.vagas-section{background:linear-gradient(135deg,#C9A84C,#8B6014);padding:18px 5%;text-align:center;}
+.vagas-inner{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;max-width:900px;margin:0 auto;}
+.vagas-alerta{background:rgba(0,0,0,.2);color:#fff;font-size:10px;font-weight:800;letter-spacing:2px;padding:4px 12px;border-radius:50px;}
+.vagas-texto{font-size:14px;color:#fff;font-weight:600;}
+.vagas-texto strong{font-size:20px;font-weight:900;}
+.vagas-btn{background:#1a1a1a;color:#C9A84C;font-family:"Montserrat",sans-serif;font-size:13px;font-weight:800;padding:10px 24px;border-radius:50px;border:none;cursor:pointer;white-space:nowrap;}
+.vagas-btn:hover{background:#000;}
+/* COMO FUNCIONA */
+.como-funciona{padding:80px 5%;background:#f8f8f8;}
+.como-funciona h2{text-align:center;font-size:clamp(24px,3vw,38px);font-weight:900;color:#1a1a1a;margin-bottom:10px;font-family:"Montserrat",sans-serif;}
+.como-funciona h2 span{color:#C9A84C;}
+.como-sub{text-align:center;font-size:14px;color:#888;margin-bottom:50px;}
+.como-grid{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0;}
+.como-item{flex:1;background:#fff;border-radius:16px;padding:36px 28px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.06);position:relative;}
+.como-num{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Montserrat",sans-serif;font-size:12px;font-weight:900;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.como-icon{font-size:40px;margin-bottom:16px;}
+.como-item h3{font-family:"Montserrat",sans-serif;font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:10px;}
+.como-item p{font-size:13px;color:#777;line-height:1.7;}
+.como-arrow{font-size:28px;color:#C9A84C;font-weight:900;padding:0 16px;flex-shrink:0;}
+@media(max-width:700px){.como-grid{flex-direction:column;gap:32px;}.como-arrow{transform:rotate(90deg);padding:0;}}
+/* POP-UP SAÍDA */
+.exit-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+.exit-overlay.open{display:flex;}
+.exit-box{background:#fff;border-radius:20px;padding:40px 36px;max-width:480px;width:100%;text-align:center;position:relative;}
+.exit-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:#999;}
+.exit-tag{font-size:13px;font-weight:700;color:#C9A84C;margin-bottom:16px;}
+.exit-box h3{font-family:"Montserrat",sans-serif;font-size:22px;font-weight:900;color:#1a1a1a;margin-bottom:12px;line-height:1.3;}
+.exit-box p{font-size:14px;color:#666;line-height:1.7;margin-bottom:20px;}
+.exit-urgencia{background:#fff3f3;border:1px solid #ffcdd2;color:#c62828;font-size:13px;font-weight:700;padding:10px 16px;border-radius:8px;margin-bottom:24px;}
+.exit-btn{display:block;width:100%;background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Montserrat",sans-serif;font-size:15px;font-weight:800;padding:16px;border-radius:50px;border:none;cursor:pointer;margin-bottom:12px;}
+.exit-btn:hover{opacity:.9;}
+.exit-skip{background:none;border:none;font-size:12px;color:#bbb;cursor:pointer;text-decoration:underline;}
 footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
 .footer-logo{display:flex;align-items:center;gap:14px;}
 .footer-logo img{height:48px;width:auto;object-fit:contain;}
@@ -158,9 +232,9 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
 .modal-body h4{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:8px;}
 .modal-body p{font-size:13px;color:#666;line-height:1.7;margin-bottom:18px;}
 .modal-btns{display:flex;flex-direction:column;gap:10px;}
-.btn-sim{background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;border:none;padding:14px;border-radius:12px;font-family:"Poppins",sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;width:100%;}
+.btn-sim{background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;border:none;padding:14px;border-radius:12px;font-family:"Montserrat",sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;width:100%;}
 .btn-sim:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
-.btn-nao{background:#f5f5f5;color:#999;border:none;padding:12px;border-radius:12px;font-family:"Poppins",sans-serif;font-weight:500;font-size:13px;cursor:pointer;width:100%;}
+.btn-nao{background:#f5f5f5;color:#999;border:none;padding:12px;border-radius:12px;font-family:"Montserrat",sans-serif;font-weight:500;font-size:13px;cursor:pointer;width:100%;}
 .btn-nao:hover{background:#eee;}
 .aviso-box{background:#fff8e8;border:1px solid #f0d080;border-radius:12px;padding:16px;margin-bottom:16px;}
 .aviso-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:#444;line-height:1.5;}
@@ -180,11 +254,11 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
 .admin-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
 .admin-body{padding:28px;}
 .admin-body .fg label{font-size:11px;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;}
-.admin-body .fg input,.admin-body .fg select,.admin-body .fg textarea{border:1.5px solid #e0e0e0;border-radius:10px;padding:12px 16px;font-family:"Poppins",sans-serif;font-size:13px;color:#1a1a1a;background:#f8f8f8;outline:none;transition:border-color .2s;appearance:none;width:100%;}
+.admin-body .fg input,.admin-body .fg select,.admin-body .fg textarea{border:1.5px solid #e0e0e0;border-radius:10px;padding:12px 16px;font-family:"Montserrat",sans-serif;font-size:13px;color:#1a1a1a;background:#f8f8f8;outline:none;transition:border-color .2s;appearance:none;width:100%;}
 .admin-body .fg input:focus,.admin-body .fg select:focus,.admin-body .fg textarea:focus{border-color:#C9A84C;background:#fff;}
-.admin-btn{width:100%;background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Poppins",sans-serif;font-weight:700;font-size:14px;padding:15px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(201,168,76,.4);transition:all .2s;margin-top:4px;}
+.admin-btn{width:100%;background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-family:"Montserrat",sans-serif;font-weight:700;font-size:14px;padding:15px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(201,168,76,.4);transition:all .2s;margin-top:4px;}
 .admin-btn:hover{transform:translateY(-1px);}
-.admin-trigger{position:fixed;bottom:100px;right:28px;z-index:500;background:#1a1a1a;color:#C9A84C;border:1px solid rgba(201,168,76,.3);border-radius:50px;padding:10px 18px;font-size:12px;font-weight:700;font-family:"Poppins",sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:all .2s;}
+.admin-trigger{position:fixed;bottom:100px;right:28px;z-index:500;background:#1a1a1a;color:#C9A84C;border:1px solid rgba(201,168,76,.3);border-radius:50px;padding:10px 18px;font-size:12px;font-weight:700;font-family:"Montserrat",sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:all .2s;}
 .admin-trigger:hover{background:#2d2d2d;}
 @media(max-width:900px){.nav-links{display:none;}.quem-inner,.contato-grid{grid-template-columns:1fr;}.cars-grid,.depos-grid{grid-template-columns:1fr 1fr;}.fg-row{grid-template-columns:1fr;}footer{flex-direction:column;text-align:center;}.footer-mid{order:3;}}
 @media(max-width:600px){.cars-grid,.depos-grid{grid-template-columns:1fr;}.selos-inner{gap:8px;}.selo{padding:10px 14px;min-width:110px;}}
@@ -243,14 +317,60 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Estoque de Qualidade com<br><span>Procedência Garantida!</span></h1>
-  <p>Intermediação de veículos de concessionárias e locadoras para lojistas e revendedores autônomos em todo o Brasil. Margem real, documentação em ordem.</p>
-  <button class="hero-btn" onclick="abrirModal()">
-    <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Entrar na Comunidade
-  </button>
+<!-- HERO CARROSSEL -->
+<section class="hero-carousel">
+  <div class="hc-track" id="hcTrack">
+
+    <!-- Slide 1 -->
+    <div class="hc-slide" style="background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1600&q=80') center/cover no-repeat;">
+      <div class="hc-content">
+        <span class="hc-tag">Oportunidade</span>
+        <h1>Compre abaixo da FIPE,<br><span>venda com lucro</span></h1>
+        <p>Estoque de locadoras e concessionárias direto para sua loja</p>
+        <p class="hc-autoridade">🤝 Parceria com as principais locadoras e concessionárias do Brasil</p>
+        <button class="hc-btn" onclick="abrirModal()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Entrar na Comunidade
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="hc-slide" style="background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1600&q=80') center/cover no-repeat;">
+      <div class="hc-content">
+        <span class="hc-tag">Variedade</span>
+        <h1>Hatch, SUV, picape<br><span>e muito mais</span></h1>
+        <p>Modelos para todo perfil de cliente</p>
+        <p class="hc-autoridade">🤝 Parceria com as principais locadoras e concessionárias do Brasil</p>
+        <button class="hc-btn" onclick="abrirModal()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Entrar na Comunidade
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="hc-slide" style="background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=80') center/cover no-repeat;">
+      <div class="hc-content">
+        <span class="hc-tag">Facilidade</span>
+        <h1>Negocie hoje,<br><span>lucre amanhã</span></h1>
+        <p>Locadoras com IPVA pago, sem sinistro, sem dor de cabeça</p>
+        <p class="hc-autoridade">🤝 Parceria com as principais locadoras e concessionárias do Brasil</p>
+        <button class="hc-btn" onclick="abrirModal()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Entrar na Comunidade
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <div class="hc-dots">
+    <span class="hc-dot active" onclick="irHC(0)"></span>
+    <span class="hc-dot" onclick="irHC(1)"></span>
+    <span class="hc-dot" onclick="irHC(2)"></span>
+  </div>
+  <button class="hc-prev" onclick="moverHC(-1)">&#8249;</button>
+  <button class="hc-next" onclick="moverHC(1)">&#8250;</button>
 </section>
 
 <!-- SELOS -->
@@ -262,6 +382,77 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
     <div class="selo"><span class="selo-icon">🚫</span><span class="selo-label">Sem Sinistro</span></div>
     <div class="selo"><span class="selo-icon">⛔</span><span class="selo-label">Sem Leilão</span></div>
     <div class="selo"><span class="selo-icon">✅</span><span class="selo-label">Garantia de Qualidade</span></div>
+  </div>
+</section>
+
+<!-- FAIXA DE MARCAS -->
+<section class="marcas-section">
+  <div class="marcas-track">
+    <div class="marcas-inner" id="marcasInner">
+      <span class="marca-item">VOLKSWAGEN</span><span class="marca-sep">·</span>
+      <span class="marca-item">FIAT</span><span class="marca-sep">·</span>
+      <span class="marca-item">CHEVROLET</span><span class="marca-sep">·</span>
+      <span class="marca-item">HYUNDAI</span><span class="marca-sep">·</span>
+      <span class="marca-item">TOYOTA</span><span class="marca-sep">·</span>
+      <span class="marca-item">RENAULT</span><span class="marca-sep">·</span>
+      <span class="marca-item">JEEP</span><span class="marca-sep">·</span>
+      <span class="marca-item">HONDA</span><span class="marca-sep">·</span>
+      <span class="marca-item">NISSAN</span><span class="marca-sep">·</span>
+      <span class="marca-item">FORD</span><span class="marca-sep">·</span>
+      <span class="marca-item">VOLKSWAGEN</span><span class="marca-sep">·</span>
+      <span class="marca-item">FIAT</span><span class="marca-sep">·</span>
+      <span class="marca-item">CHEVROLET</span><span class="marca-sep">·</span>
+      <span class="marca-item">HYUNDAI</span><span class="marca-sep">·</span>
+      <span class="marca-item">TOYOTA</span><span class="marca-sep">·</span>
+      <span class="marca-item">RENAULT</span><span class="marca-sep">·</span>
+      <span class="marca-item">JEEP</span><span class="marca-sep">·</span>
+      <span class="marca-item">HONDA</span><span class="marca-sep">·</span>
+      <span class="marca-item">NISSAN</span><span class="marca-sep">·</span>
+      <span class="marca-item">FORD</span><span class="marca-sep">·</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTADOR DE VAGAS -->
+<section class="vagas-section">
+  <div class="vagas-inner">
+    <div class="vagas-alerta">🔴 AO VIVO</div>
+    <p class="vagas-texto">Apenas <strong id="vagasNum">7</strong> vagas disponíveis na comunidade esta semana</p>
+    <button class="vagas-btn" onclick="abrirModal()">Garantir minha vaga agora →</button>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="como-funciona">
+  <h2>Como <span>funciona?</span></h2>
+  <p class="como-sub">Em 3 passos simples você já está negociando</p>
+  <div class="como-grid">
+    <div class="como-item">
+      <div class="como-num">01</div>
+      <div class="como-icon">📋</div>
+      <h3>Cadastre-se</h3>
+      <p>Preencha o formulário rápido e envie pelo WhatsApp. Nossa equipe analisa seu perfil em até 24h.</p>
+    </div>
+    <div class="como-arrow">→</div>
+    <div class="como-item">
+      <div class="como-num">02</div>
+      <div class="como-icon">🚗</div>
+      <h3>Acesse o Estoque</h3>
+      <p>Receba acesso à comunidade exclusiva onde postamos veículos diariamente com preços e fotos.</p>
+    </div>
+    <div class="como-arrow">→</div>
+    <div class="como-item">
+      <div class="como-num">03</div>
+      <div class="como-icon">🤝</div>
+      <h3>Negocie</h3>
+      <p>Escolheu o veículo? Entre em contato, feche o negócio e lucre na revenda. Simples assim.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px;">
+    <button class="hc-btn" onclick="abrirModal()">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Quero me cadastrar
+    </button>
   </div>
 </section>
 
@@ -291,6 +482,27 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
       <div class="qnum-card"><strong>+500</strong><span>Lojistas e revendedores parceiros</span></div>
       <div class="qnum-card"><strong>100%</strong><span>Procedência garantida</span></div>
       <div class="qnum-card"><strong>✅</strong><span>Veículos sem sinistro e sem leilão</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISÃO MISSÃO VALORES -->
+<section class="vmv-section">
+  <div class="vmv-grid">
+    <div class="vmv-card">
+      <div class="vmv-icon">🎯</div>
+      <h3>Visão</h3>
+      <p>Ser a referência em repasse B2B de veículos no Brasil, conectando lojistas às melhores oportunidades do mercado.</p>
+    </div>
+    <div class="vmv-card vmv-destaque">
+      <div class="vmv-icon">🚀</div>
+      <h3>Missão</h3>
+      <p>Oferecer veículos de procedência com preços justos, agilidade e total transparência para lojistas e revendedores de todo o Brasil.</p>
+    </div>
+    <div class="vmv-card">
+      <div class="vmv-icon">🤝</div>
+      <h3>Valores</h3>
+      <p>Honestidade, ética e compromisso em cada negociação — parceria sólida com nossos clientes acima de tudo.</p>
     </div>
   </div>
 </section>
@@ -761,6 +973,21 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
   </div>
 </div>
 
+<!-- POP-UP DE SAÍDA -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-box">
+    <button class="exit-close" onclick="fecharExit()">×</button>
+    <div class="exit-tag">⚠️ Espera!</div>
+    <h3>Você está saindo sem garantir sua vaga</h3>
+    <p>Lojistas de todo o Brasil estão entrando na comunidade TH e comprando veículos abaixo da FIPE todo dia.</p>
+    <div class="exit-urgencia">🔴 Apenas <strong id="exitVagas">7</strong> vagas disponíveis esta semana</div>
+    <button class="exit-btn" onclick="fecharExit();abrirModal();">
+      Garantir minha vaga agora →
+    </button>
+    <button class="exit-skip" onclick="fecharExit()">Não, prefiro perder a oportunidade</button>
+  </div>
+</div>
+
 <script>
 function toggleFaq(el){
   var item=el.parentElement;
@@ -794,6 +1021,15 @@ function pedirSenhaAdmin(){
   if(s==="TH2025")abrirAdmin();
   else if(s!==null)alert("Senha incorreta.");
 }
+// HERO CARROSSEL
+var hcAtual=0,hcTotal=3;
+function irHC(n){
+  hcAtual=n;
+  document.getElementById("hcTrack").style.transform="translateX(-"+n*100+"%)";
+  document.querySelectorAll(".hc-dot").forEach(function(d,i){d.classList.toggle("active",i===n);});
+}
+function moverHC(dir){hcAtual=(hcAtual+dir+hcTotal)%hcTotal;irHC(hcAtual);}
+setInterval(function(){moverHC(1);},5000);
 // Atalho secreto: 5 cliques no logo
 var _logoClicks=0,_logoTimer=null;
 document.querySelector(".nav-logo").addEventListener("click",function(){
@@ -831,6 +1067,20 @@ function adicionarCarro(){
   fecharAdmin();
   alert("✅ Carro adicionado ao estoque!");
 }
+// POP-UP DE SAÍDA
+var exitMostrado=false;
+document.addEventListener("mouseleave",function(e){
+  if(e.clientY<=0&&!exitMostrado){
+    exitMostrado=true;
+    document.getElementById("exitOverlay").classList.add("open");
+  }
+});
+function fecharExit(){document.getElementById("exitOverlay").classList.remove("open");}
+// CONTADOR DE VAGAS — diminui a cada 30 min simulando urgência
+var vagas=7;
+setInterval(function(){
+  if(vagas>3){vagas--;document.getElementById("vagasNum").textContent=vagas;document.getElementById("exitVagas").textContent=vagas;}
+},1800000);
 // FORM CONTATO
 function enviarForm(){
   var nome=document.querySelector("input[type=text]").value||"Não informado";
