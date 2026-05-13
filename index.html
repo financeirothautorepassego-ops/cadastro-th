@@ -69,24 +69,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .cars-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .car-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #ececec;box-shadow:0 4px 20px rgba(0,0,0,.05);transition:all .25s;}
 .car-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.12);border-color:#C9A84C;}
-.car-photo{height:200px;background:linear-gradient(135deg,#f5f0e8,#ede5d0);display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;}
+.car-photo{height:210px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;overflow:hidden;}
+.car-photo img{width:100%;height:100%;object-fit:contain;background:#f5f5f5;}
 .car-proc{position:absolute;top:12px;left:12px;background:#1a1a1a;color:#C9A84C;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:50px;}
 .car-avail{position:absolute;top:12px;right:12px;font-size:9px;font-weight:700;padding:5px 12px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;}
 .av-sim{background:#e8f8ee;color:#1a8a44;}
 .av-nao{background:#fff3e8;color:#b85a00;}
+.av-vendido{background:#111;color:#fff;font-size:11px;font-weight:800;}
 .car-info{padding:20px;}
-.car-nome{font-size:20px;font-weight:800;color:#1a1a1a;margin-bottom:4px;}
+.car-nome{font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:4px;}
 .car-sub{font-size:12px;color:#999;margin-bottom:12px;}
 .car-specs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
 .car-spec{font-size:11px;color:#666;background:#f5f5f5;padding:4px 10px;border-radius:50px;}
 .car-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid #f0f0f0;}
-.car-price small{display:block;font-size:10px;color:#aaa;margin-bottom:2px;}
-.car-price strong{font-size:20px;font-weight:800;color:#1a1a1a;}
-.car-fipe{font-size:11px;color:#aaa;text-decoration:line-through;display:block;margin-bottom:2px;}
-.car-economia{font-size:10px;color:#1a8a44;font-weight:700;background:#e8f8ee;padding:2px 8px;border-radius:50px;display:inline-block;margin-bottom:4px;}
-.av-vendido{background:#f0f0f0;color:#888;}
+.car-price{display:flex;flex-direction:column;gap:1px;}
+.car-fipe{font-size:12px;color:#999;text-decoration:line-through;font-weight:500;}
+.car-price small{display:block;font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;}
+.car-price strong{font-size:18px;font-weight:800;color:#C9A84C;line-height:1.2;}
 .car-neg{background:linear-gradient(135deg,#C9A84C,#8B6014);color:#fff;font-size:12px;font-weight:700;padding:10px 22px;border-radius:50px;transition:all .2s;border:none;cursor:pointer;font-family:"Poppins",sans-serif;}
 .car-neg:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4);}
+.car-economia{display:none;}
 .porque{padding:80px 5%;background:#f8f8f8;}
 .porque h2{text-align:center;font-size:clamp(24px,3vw,38px);font-weight:800;margin-bottom:48px;}
 .porque h2 span{color:#C9A84C;}
@@ -323,6 +325,161 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
     <p>Estoque dinâmico com preços imbatíveis. Reserve antes que acabe.</p>
   </div>
   <div class="cars-grid" id="carsGrid">
+
+    <!-- Polo Track 1.0 -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.11.10.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Polo Track 1.0</div>
+        <div class="car-sub">2024/2025 · Manual</div>
+        <div class="car-specs"><span class="car-spec">67.000 km</span><span class="car-spec">Manual</span><span class="car-spec">Branco</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 75.992</span>
+            <small>Valor de venda</small>
+            <strong>R$ 59.900</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strada Endurance -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.12.15.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Strada Endurance</div>
+        <div class="car-sub">2024/2025 · 1.3 Manual</div>
+        <div class="car-specs"><span class="car-spec">63.000 km</span><span class="car-spec">Manual</span><span class="car-spec">Branco</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 86.869</span>
+            <small>Valor de venda</small>
+            <strong>R$ 69.000</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Argo Drive -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.12.33.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Argo Drive</div>
+        <div class="car-sub">2024/2025 · Manual</div>
+        <div class="car-specs"><span class="car-spec">69.500 km</span><span class="car-spec">Manual</span><span class="car-spec">Branco</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 71.950</span>
+            <small>Valor de venda</small>
+            <strong>R$ 55.990</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nivus Highline -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.13.57.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Nivus Highline</div>
+        <div class="car-sub">2024/2025 · 200 TSI Automático</div>
+        <div class="car-specs"><span class="car-spec">82.000 km</span><span class="car-spec">Automático</span><span class="car-spec">Cinza</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 117.092</span>
+            <small>Valor de venda</small>
+            <strong>R$ 93.900</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saveiro Robust -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.14.15.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Saveiro Robust</div>
+        <div class="car-sub">2024/2025 · Manual</div>
+        <div class="car-specs"><span class="car-spec">67.000 km</span><span class="car-spec">Manual</span><span class="car-spec">Branco</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 84.415</span>
+            <small>Valor de venda</small>
+            <strong>R$ 63.400</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- T-Cross Comfortline -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp%20Image%202026-05-13%20at%2015.15.30.jpeg" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">T-Cross Comfortline</div>
+        <div class="car-sub">2023/2024 · Automático</div>
+        <div class="car-specs"><span class="car-spec">79.200 km</span><span class="car-spec">Automático</span><span class="car-spec">Azul</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 118.132</span>
+            <small>Valor de venda</small>
+            <strong>R$ 88.600</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Polo Track 1.0 c/ Mídia -->
+    <div class="car-card">
+      <div class="car-photo" style="padding:0;position:relative;">
+        <img src="https://i.ibb.co/fYF43ngS/Whats-App-Image-2026-05-13-at-14-36-38.jpg" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/><span style="display:none;font-size:56px;width:100%;height:100%;align-items:center;justify-content:center;">🚗</span>
+        <span class="car-proc">Locadora</span>
+        <span class="car-avail av-vendido">VENDIDO</span>
+      </div>
+      <div class="car-info">
+        <div class="car-nome">Polo Track 1.0 c/ Mídia</div>
+        <div class="car-sub">2024/2025 · Manual</div>
+        <div class="car-specs"><span class="car-spec">79.000 km</span><span class="car-spec">Manual</span><span class="car-spec">Branco</span></div>
+        <div class="car-bottom">
+          <div class="car-price">
+            <span class="car-fipe">FIPE: R$ 75.992</span>
+            <small>Valor de venda</small>
+            <strong>R$ 59.900</strong>
+          </div>
+          <button class="car-neg" style="background:#555;cursor:default;">Vendido ✅</button>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div style="text-align:center;margin-top:36px;">
     <button class="btn-comunidade" onclick="abrirModal()" style="display:inline-flex;padding:14px 36px;font-size:14px;">
