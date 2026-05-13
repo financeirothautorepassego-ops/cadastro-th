@@ -637,9 +637,13 @@ function pedirSenhaAdmin(){
   if(s==="TH2025")abrirAdmin();
   else if(s!==null)alert("Senha incorreta.");
 }
-// Atalho secreto: Ctrl+Shift+A
-document.addEventListener("keydown",function(e){
-  if(e.ctrlKey&&e.shiftKey&&e.key==="A"){pedirSenhaAdmin();}
+// Atalho secreto: 5 cliques no logo
+var _logoClicks=0,_logoTimer=null;
+document.querySelector(".nav-logo").addEventListener("click",function(){
+  _logoClicks++;
+  if(_logoTimer)clearTimeout(_logoTimer);
+  _logoTimer=setTimeout(function(){_logoClicks=0;},2000);
+  if(_logoClicks>=5){_logoClicks=0;pedirSenhaAdmin();}
 });
 function abrirAdmin(){document.getElementById("adminPanel").classList.add("open");document.body.style.overflow="hidden";}
 function fecharAdmin(){document.getElementById("adminPanel").classList.remove("open");document.body.style.overflow="";}
