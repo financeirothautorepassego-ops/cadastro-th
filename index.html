@@ -11,7 +11,13 @@
 html{scroll-behavior:smooth;}
 body{font-family:"Inter",sans-serif;background:#fff;color:#1a1a1a;overflow-x:hidden;}
 a{text-decoration:none;}
-nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;}
+/* TOPBAR */
+.topbar{background:linear-gradient(135deg,#0d0d0d,#1a1500);border-bottom:1px solid rgba(201,168,76,.3);padding:7px 5%;position:fixed;top:0;left:0;right:0;z-index:1000;}
+.topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.topbar-inner span{font-size:11px;color:rgba(255,255,255,.7);font-family:"Montserrat",sans-serif;letter-spacing:.5px;}
+.topbar-sep{color:#C9A84C!important;font-weight:700;}
+@media(max-width:600px){.topbar{display:none;}}
+nav{position:fixed;top:34px;left:0;right:0;z-index:999;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;gap:10px;}
 .nav-logo img{height:52px;width:auto;object-fit:contain;}
 .nav-logo-text strong{display:block;font-size:14px;font-weight:800;color:#1a1a1a;letter-spacing:.3px;}
@@ -128,7 +134,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .form-btn:hover{transform:translateY(-2px);}
 .form-note{font-size:11px;color:#aaa;text-align:center;margin-top:10px;}
 /* HERO CARROSSEL */
-.hero-carousel{position:relative;width:100%;overflow:hidden;margin-top:72px;}
+.hero-carousel{position:relative;width:100%;overflow:hidden;margin-top:106px;}
 .hc-track{display:flex;transition:transform 0.6s cubic-bezier(.77,0,.175,1);}
 .hc-slide{min-width:100%;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5%;}
 .hc-content{max-width:700px;}
@@ -170,6 +176,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .vmv-card h3{font-family:"Montserrat",sans-serif;font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:12px;}
 .vmv-card p{font-size:13px;color:#666;line-height:1.8;}
 @media(max-width:700px){.vmv-grid{grid-template-columns:1fr;}}
+/* FUNDADOR */
+.fundador-section{padding:80px 5%;background:#1a1a1a;}
+.fundador-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:60px;}
+.fundador-foto{flex-shrink:0;width:180px;height:180px;border-radius:50%;overflow:hidden;border:3px solid #C9A84C;box-shadow:0 0 40px rgba(201,168,76,.3);}
+.fundador-foto img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.fundador-texto{flex:1;padding-bottom:20px;}
+.fundador-tag{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#C9A84C;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;}
+.fundador-texto h2{font-family:"Montserrat",sans-serif;font-size:clamp(22px,3vw,32px);font-weight:900;color:#fff;margin-bottom:6px;line-height:1.1;}
+.fundador-cargo{font-size:12px;color:#C9A84C;font-weight:600;letter-spacing:1px;margin-bottom:20px;}
+.fundador-quote{font-size:13px;color:rgba(255,255,255,.75);line-height:1.9;font-style:italic;border-left:3px solid #C9A84C;padding-left:16px;margin-bottom:28px;}
+.fundador-stats{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.fundador-stat{text-align:center;}
+.fundador-stat strong{display:block;font-family:"Montserrat",sans-serif;font-size:22px;font-weight:900;color:#C9A84C;}
+.fundador-stat span{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.5px;}
+.fundador-stat-sep{width:1px;height:36px;background:rgba(255,255,255,.15);}
+@media(max-width:800px){.fundador-inner{flex-direction:column;align-items:center;gap:24px;}.fundador-texto{text-align:center;}.fundador-quote{text-align:left;}.fundador-stats{justify-content:center;}}
 /* VAGAS */
 .vagas-section{background:linear-gradient(135deg,#C9A84C,#8B6014);padding:18px 5%;text-align:center;}
 .vagas-inner{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;max-width:900px;margin:0 auto;}
@@ -205,7 +227,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;box-shadow:0
 .exit-skip{background:none;border:none;font-size:12px;color:#bbb;cursor:pointer;text-decoration:underline;}
 footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
 .footer-logo{display:flex;align-items:center;gap:14px;}
-.footer-logo img{height:48px;width:auto;object-fit:contain;}
+.footer-logo img{height:52px;width:auto;object-fit:contain;border-radius:0 0 12px 12px;overflow:hidden;}
 .footer-logo-text strong{font-size:14px;color:#fff;font-weight:700;display:block;}
 .footer-logo-text small{font-size:10px;color:#C9A84C;letter-spacing:1px;text-transform:uppercase;}
 .footer-mid{display:flex;flex-direction:column;align-items:center;gap:10px;}
@@ -231,7 +253,7 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
 @keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-step{display:none;}.modal-step.active{display:block;}
 .modal-header{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);padding:24px 32px;text-align:center;}
-.modal-header img{height:60px;object-fit:contain;margin-bottom:10px;}
+.modal-header img{height:60px;object-fit:contain;margin-bottom:10px;border-radius:0 0 12px 12px;}
 .modal-header h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
 .modal-header p{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.5px;}
 .modal-body{padding:24px 28px;}
@@ -299,6 +321,19 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
 </style>
 </head>
 <body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Goiânia – GO</span>
+    <span class="topbar-sep">|</span>
+    <span>CNPJ: 59.654.950/0001-82</span>
+    <span class="topbar-sep">|</span>
+    <span>🛡️ Empresa Verificada CBRAV</span>
+    <span class="topbar-sep">|</span>
+    <span>✅ Desde 2024</span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -516,6 +551,28 @@ footer{background:#1a1a1a;padding:40px 5%;display:flex;justify-content:space-bet
       <div class="vmv-icon">🤝</div>
       <h3>Valores</h3>
       <p>Honestidade, ética e compromisso em cada negociação — parceria sólida com nossos clientes acima de tudo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDADOR -->
+<section class="fundador-section">
+  <div class="fundador-inner">
+    <div class="fundador-foto">
+      <img src="https://financeirothautorepassego-ops.github.io/cadastro-th/WhatsApp_Image_2026-05-14_at_10.56.31-removebg-preview.png" alt="Thalis Henrique — Fundador TH Auto Repasse"/>
+    </div>
+    <div class="fundador-texto">
+      <span class="fundador-tag">Quem está por trás da TH</span>
+      <h2>Thalis Henrique</h2>
+      <p class="fundador-cargo">Fundador — TH Auto Repasse</p>
+      <p class="fundador-quote">"São mais de 25 anos no mercado automotivo, sendo 19 deles dentro de concessionárias. Conheci cada detalhe desse setor por dentro e enxerguei uma oportunidade real: conectar lojistas e revendedores diretamente às melhores fontes do Brasil, com procedência garantida, margem real e total transparência em cada negociação."</p>
+      <div class="fundador-stats">
+        <div class="fundador-stat"><strong>+25</strong><span>Anos no mercado</span></div>
+        <div class="fundador-stat-sep"></div>
+        <div class="fundador-stat"><strong>19</strong><span>Anos em concessionárias</span></div>
+        <div class="fundador-stat-sep"></div>
+        <div class="fundador-stat"><strong>+800</strong><span>Veículos negociados</span></div>
+      </div>
     </div>
   </div>
 </section>
