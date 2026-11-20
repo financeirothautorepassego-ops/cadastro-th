@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meu Gestor | TH Auto Repasse</title>
+<style>
+:root{--gold:#c9a84c;--gold2:#e6c76a;--ouro:linear-gradient(135deg,#a97b1f,#d8b24a 55%,#b8892b);--mut:#6b7280;--line:#e7e2d6;--bg:#f6f4ee}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#16181d;font-size:15px;display:flex;flex-direction:column}
+header{background:#0b0b0d;color:#fff;padding:12px 16px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:10px}
+header .av{width:38px;height:38px;border-radius:50%;background:var(--ouro);color:#1a1305;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+header h1{margin:0;font-size:17px}header h1 span{color:var(--gold2)}
+header p{margin:1px 0 0;color:#aeb4bd;font-size:11.5px}
+header #tgVel{margin-left:auto}header .tg{background:#1c1c20;color:#fff;border:1px solid #333;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+#chat{flex:1;overflow:auto;padding:14px 12px 8px;max-width:760px;width:100%;margin:0 auto}
+.b{max-width:86%;padding:10px 13px;border-radius:16px;margin:8px 0;line-height:1.38;white-space:pre-wrap;word-wrap:break-word}
+.b.bot{background:#fff;border:1px solid var(--line);border-top-left-radius:4px}
+.b.eu{background:#0b0b0d;color:#f3e7c0;margin-left:auto;border-top-right-radius:4px}
+.b.ok{background:#ecfdf3;border:1px solid #bbf7d0}
+.b.av{background:#fff7d6;border:1px solid #f1d98a}
+.b small{display:block;color:var(--mut);font-size:11px;margin-top:4px}
+.b.eu small{color:#c9b57a}
+.nome{font-size:11px;font-weight:700;color:#8a6a1c;margin-bottom:2px}
+.ficha b{display:inline-block;min-width:96px;color:#6b5400}
+#bar{background:#fff;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+#bar .in{max-width:760px;margin:0 auto;display:flex;gap:8px;align-items:center}
+#txt{flex:1;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font:inherit;background:#fff;min-width:0}
+.btn{border:0;background:var(--ouro);color:#1a1305;border-radius:999px;padding:0 16px;height:46px;font:inherit;font-weight:700;cursor:pointer}
+#mic{width:56px;height:56px;border-radius:50%;border:0;background:var(--ouro);color:#1a1305;font-size:26px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);flex:none}
+#mic.on{background:#dc2626;color:#fff;animation:p 1s infinite}
+#mic.pede{animation:p 1s infinite}
+@keyframes p{50%{transform:scale(1.1)}}
+.rod{max-width:760px;margin:6px auto 0;text-align:center;font-size:11.5px;color:var(--mut)}
+.rod a{color:#8a6a1c;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<header><div class="av">MG</div><div><h1>Meu <span>Gestor</span></h1><p id="sub">TH Auto Repasse · teste fora do sistema · versão 12 (busca e altera cliente)</p></div><button class="tg" id="tgVel" title="Velocidade da voz">⚡ Rápida</button><button class="tg" id="tgVoz" style="margin-left:6px">🔊 Voz ligada</button></header>
+<div id="chat"></div>
+<div id="bar"><div class="in"><input id="txt" placeholder="Fale no microfone ou escreva aqui…" autocomplete="off"><button class="btn" id="env">Enviar</button><button id="mic" title="Falar">🎤</button></div>
+<div class="rod">Toque no 🎤 uma vez: a conversa fica ligada (contorno verde). Toque de novo para pausar.<br>Nada é gravado no Firebase neste teste. <a id="zerar">Apagar clientes de teste</a></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const so=s=>String(s||'').replace(/\D/g,'');
+
+/* ---------- CNPJ ---------- */
+function cnpjValido(c){
+ c=so(c);if(c.length!==14||/^(\d)\1+$/.test(c))return false;
+ const calc=n=>{let s=0,p=n-7;for(let i=0;i<n;i++){s+=+c[i]*p--;if(p<2)p=9}const r=s%11;return r<2?0:11-r};
+ return calc(12)===+c[12]&&calc(13)===+c[13];
+}
+function fmtCnpj(c){c=so(c);return c.length===14?c.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5'):c}
+function fmtTel(t){t=so(t);if(t.length===11)return t.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');if(t.length===10)return t.replace(/(\d{2})(\d{4})(\d{4})/,'($1) $2-$3');return t}
+
+/* ---------- interpretação da fala (sem IA, só regras) ---------- */
+const NUM={zero:0,um:1,uma:1,dois:2,duas:2,tres:3,'três':3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9};
+function preNorm(txt){
+ let t=String(txt||'');
+ // "barra mil" / "contra mil" / "oito dígitos mil" = filial 0001 (jeito comum de falar)
+ t=t.replace(/\b(?:barra|barras|bara|contra|contrá|conta)[\s.,;:]*(?:mil|1\.?000)\b/gi,'/0001');
+ // "N mil" (N por extenso ou em número, de 1 a 99) = filial com 4 dígitos: 3 mil -> 0003, 12 mil -> 0012
+ const EXT={um:1,uma:1,dois:2,duas:2,tres:3,'três':3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9,dez:10,onze:11,doze:12,treze:13,catorze:14,quatorze:14,quinze:15,dezesseis:16,dezessete:17,dezoito:18,dezenove:19,vinte:20};
+ const pad4=n=>'/'+String(n).padStart(4,'0');
+ t=t.replace(new RegExp('\\b('+Object.keys(EXT).join('|')+')\\s+mil\\b','gi'),(m,x)=>pad4(EXT[x.toLowerCase()]));
+ t=t.replace(/\b(\d{1,2})\s*mil\b/gi,(m,n)=>+n>0?pad4(+n):m);
+ t=t.replace(/(\d)[\s.\-\/]*\bmil\b/gi,(m,d)=>d+'/0001');
+ // "zero zero zero um" -> 0001 (sequências de 2 ou mais números por extenso)
+ const w='(?:'+Object.keys(NUM).join('|')+')';
+ t=t.replace(new RegExp('\\b'+w+'(?:\\s+'+w+')+\\b','gi'),m=>m.trim().split(/\s+/).map(x=>NUM[x.toLowerCase()]).join(''));
+ t=t.replace(/(\d)[\s.,;:]*\b(?:barra|barras|bara|contra|contrá|conta|contras)(?![A-Za-zÀ-ÿ])[\s.,;:]*(?=\d)/gi,'$1/');
+ return t;
+}
+function interpretar(texto){
+ const t=preNorm(texto);
+ const baixo=t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+ const r={intencao:'',cnpj:'',tel:'',tipo:'',contato:''};
+ // junta dígitos separados por espaço, ponto, barra ou traço ("12 345 678 0001 90")
+ let junto=t;
+ for(let i=0;i<6;i++)junto=junto.replace(/(\d)[\s.,\-\/()]+(?=\d)/g,'$1');
+ const m14=junto.match(/\d{14}/);
+ if(m14&&cnpjValido(m14[0]))r.cnpj=m14[0];
+ else if(m14){
+  // se a voz escreveu "3000" no lugar de "0003" (ou 1000 no lugar de 0001), tenta consertar
+  const fi=m14[0].slice(8,12),alt=m14[0].slice(0,8)+(/^[1-9]000$/.test(fi)?'000'+fi[0]:fi)+m14[0].slice(12);
+  r.cnpj=cnpjValido(alt)?alt:m14[0]; // se continuar inválido, o sistema avisa
+ }
+ let resto=junto.replace(/\d{14}/,' ');
+ const mt=resto.match(/(?:\+?55\s*)?\(?(\d{2})\)?\s*9?\d{8}\b/)||resto.match(/\b\d{10,11}\b/);
+ if(mt)r.tel=so(mt[0]).replace(/^55(?=\d{10,11}$)/,'');
+ if(/\blojista\b|\bloja\b/.test(baixo))r.tipo='Lojista';
+ else if(/revendedor|autonomo|revenda/.test(baixo))r.tipo='Revendedor autônomo';
+ const mc=t.match(/contato\s+(?:é\s+|e\s+|com\s+)?([A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+){0,2})/i);
+ if(mc)r.contato=mc[1].replace(/\b(whatsapp|telefone|celular|lojista|revendedor|cnpj)\b.*$/i,'').trim();
+ r.lido=junto.slice(0,120);
+ if(/cadastr|novo cliente|incluir cliente|cliente/.test(baixo)||r.cnpj)r.intencao='cliente';
+ else if(/venda|vendi/.test(baixo))r.intencao='venda';
+ else if(/pagar|conta a pagar|despesa/.test(baixo))r.intencao='pagar';
+ else if(/receber|conta a receber/.test(baixo))r.intencao='receber';
+ return r;
+}
+
+/* ---------- consulta pública de CNPJ ---------- */
+async function consultaCnpj(c){
+ c=so(c);
+ const a=(async()=>{
+  const r=await fetch('https://brasilapi.com.br/api/cnpj/v1/'+c);if(!r.ok)throw new Error('x');const j=await r.json();
+  return{razao:j.razao_social||'',fant:j.nome_fantasia||'',sit:j.descricao_situacao_cadastral||'',
+   end:[j.descricao_tipo_de_logradouro,j.logradouro,j.numero,j.complemento,j.bairro].filter(Boolean).join(' ').replace(/\s+/g,' '),
+   cid:(j.municipio||'')+(j.uf?' / '+j.uf:''),cep:j.cep||'',tel:so(j.ddd_telefone_1||''),email:(j.email||'').toLowerCase(),fonte:'BrasilAPI'};
+ })();
+ const b=(async()=>{
+  const r=await fetch('https://publica.cnpj.ws/cnpj/'+c);if(!r.ok)throw new Error('x');const j=await r.json(),e=j.estabelecimento||{};
+  return{razao:j.razao_social||'',fant:e.nome_fantasia||'',sit:e.situacao_cadastral||'',
+   end:[e.tipo_logradouro,e.logradouro,e.numero,e.complemento,e.bairro].filter(Boolean).join(' ').replace(/\s+/g,' '),
+   cid:((e.cidade&&e.cidade.nome)||'')+((e.estado&&e.estado.sigla)?' / '+e.estado.sigla:''),cep:e.cep||'',
+   tel:so((e.ddd1||'')+(e.telefone1||'')),email:(e.email||'').toLowerCase(),fonte:'CNPJ.ws'};
+ })();
+ try{return await Promise.any([a,b])}catch(e){return null}
+}
+
+/* ---------- Meu Gestor: conversa ---------- */
+const NOME='Meu Gestor';
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
+const KEY='teste_clientes_th';
+const lerC=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}};
+let S={etapa:'inicio',d:{}};
+let voz=true,ocupado=false,vel=1.35;
+
+/* fala em voz alta (voz do próprio navegador, grátis) */
+let VOZ_PT=null;
+function escolheVoz(){
+ try{const v=speechSynthesis.getVoices().filter(x=>/^pt[-_]BR/i.test(x.lang));
+  VOZ_PT=v.find(x=>x.localService)||v[0]||null}catch(e){}
+}
+try{escolheVoz();speechSynthesis.onvoiceschanged=escolheVoz}catch(e){}
+let falando=0,ate=0;
+const ditos=[];
+const palavras=t=>norm(t).replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
+function registraDito(t){ditos.push({w:palavras(t),ts:Date.now()});if(ditos.length>8)ditos.shift()}
+/* tira do começo do que foi ouvido as palavras que são eco da voz dele (sequência de 2+ palavras iguais ao que ele acabou de dizer) */
+function tiraEco(txt){
+ let T=palavras(txt);if(!T.length)return '';
+ const agora=Date.now();let melhor=0;
+ for(const d of ditos){
+  if(agora-d.ts>25000)continue;
+  for(let k=Math.min(T.length,d.w.length);k>=2&&k>melhor;k--){
+   const ini=T.slice(0,k).join(' ');
+   for(let a=0;a+k<=d.w.length;a++){if(d.w.slice(a,a+k).join(' ')===ini){melhor=k;break}}
+  }
+ }
+ if(!melhor)return txt;
+ // devolve o texto original sem as 'melhor' primeiras palavras
+ let n=0,i=0;const rx=/\S+/g;let m;
+ while((m=rx.exec(txt))){ if(palavras(m[0]).length){n++} if(n>=melhor){i=rx.lastIndex;break} }
+ return txt.slice(i).replace(/^[\s.,;:!?-]+/,'').trim();
+}
+const podeOuvir=()=>falando===0&&!ocupado&&Date.now()>ate;
+function falar(t){
+ return new Promise(res=>{
+  if(!voz||!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined')return res();
+  let feito=false;
+  const fim=()=>{if(feito)return;feito=true;falando=Math.max(0,falando-1);ate=Date.now()+150;res()};
+  try{
+   falando++;registraDito(t);
+   const u=new SpeechSynthesisUtterance(String(t).replace(/[^\p{L}\p{N}\s.,!?:]/gu,' ').replace(/\s+/g,' '));
+   u.lang='pt-BR';if(VOZ_PT)u.voice=VOZ_PT;u.rate=vel;u.onend=fim;u.onerror=fim;speechSynthesis.speak(u);
+   setTimeout(fim,20000);
+  }catch(e){fim()}
+ });
+}
+function bolha(cls,html,extra){
+ const d=document.createElement('div');d.className='b '+cls+(extra?' '+extra:'');d.innerHTML=html;
+ const c=$('#chat');c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function diz(t,extra,opc){opc=opc||{};bolha('bot','<div class="nome">'+NOME+'</div>'+esc(t),extra);const p=falar(opc.fala||t);if(opc.espera!==false)await p}
+function eu(t,lido){bolha('eu',esc(t)+(lido?'<small>li: '+esc(lido)+'</small>':''))}
+
+function reset(){S={etapa:'inicio',d:{}}}
+const fmtTelBr=t=>fmtTel(t);
+
+function resumo(){
+ const d=S.d;
+ return '<div class="nome">'+NOME+'</div><div class="ficha">'+
+  '<div><b>CNPJ</b> '+esc(fmtCnpj(d.cnpj))+'</div>'+
+  '<div><b>Razão social</b> '+esc(d.razao||'—')+'</div>'+
+  (d.fant?'<div><b>Fantasia</b> '+esc(d.fant)+'</div>':'')+
+  '<div><b>Situação</b> '+esc(d.sit||'—')+'</div>'+
+  '<div><b>Cidade/UF</b> '+esc(d.cid||'—')+'</div>'+
+  '<div><b>WhatsApp</b> '+esc(d.tel?fmtTelBr(d.tel):'—')+'</div>'+
+  '<div><b>Tipo</b> '+esc(d.tipo||'—')+'</div>'+
+  '<div><b>Contato</b> '+esc(d.contato||'—')+'</div></div>';
+}
+
+/* próxima pergunta: só pergunta o que ainda falta */
+async function avanca(){
+ const d=S.d;
+ if(!d.cnpj){S.etapa='cnpj';await diz('Qual é o CNPJ do cliente?',null,{fala:'Qual o CNPJ?'});return}
+ if(!d.razao){S.etapa='razao';await diz('Não consegui buscar os dados desse CNPJ agora. Me diga o nome da empresa.');return}
+ if(!d.tel&&!d.telPulado){
+  S.etapa='tel';
+  await diz(d.telReceita?'O telefone que consta na Receita é '+fmtTelBr(d.telReceita)+'. Quer usar esse? Ou me diga o WhatsApp do cliente.':'Qual é o WhatsApp do cliente? Se não tiver, diga "pular".',null,{fala:d.telReceita?'WhatsApp? Ou diga: esse.':'Qual o WhatsApp?'});return}
+ if(!d.tipo){S.etapa='tipo';await diz('Ele é lojista ou revendedor autônomo?',null,{fala:'Lojista ou revendedor?'});return}
+ if(d.contato===undefined){S.etapa='contato';await diz('Qual o nome da pessoa de contato? Se não quiser informar, diga "não".',null,{fala:'Nome do contato? Ou diga: não.'});return}
+ S.etapa='confirma';
+ bolha('bot av',resumo());
+ const aviso=d.sit&&!/ativa/i.test(d.sit)?' Atenção: a situação dessa empresa é '+d.sit+'.':'';
+ bolha('bot','<div class="nome">'+NOME+'</div>'+esc('Posso cadastrar? Diga "confirmar" ou "cancelar".'+aviso));
+ await falar(aviso?'Atenção, situação '+d.sit+'. Posso cadastrar?':'Posso cadastrar?');
+}
+
+async function buscaCnpj(cnpj){
+ S.d.cnpj=cnpj;
+ const base=lerC();
+ if(base[cnpj]){await diz('Esse CNPJ já está cadastrado como '+base[cnpj].razao+'. Não vou duplicar.');reset();return}
+ await diz('Buscando os dados…',null,{fala:'Um instante.',espera:false});
+ const r=await consultaCnpj(cnpj);
+ if(!r){S.d.razao='';await avanca();return}
+ Object.assign(S.d,{razao:r.razao,fant:r.fant,sit:r.sit,end:r.end,cid:r.cid,cep:r.cep,email:r.email,telReceita:r.tel});
+ const ativa=/ativa/i.test(r.sit||'');
+ await diz('Achei: '+r.razao+(r.cid?', em '+r.cid:'')+'. Situação cadastral: '+(r.sit||'não informada')+'.'+(ativa?'':' Atenção com isso!'),ativa?'':'av',{fala:ativa?'Achei.':'Achei, mas a situação é '+(r.sit||'desconhecida')+'.',espera:false});
+ await avanca();
+}
+
+function extraiTipo(t){if(/lojista|\bloja\b/.test(t))return'Lojista';if(/revendedor|autonomo|revenda/.test(t))return'Revendedor autônomo';return''}
+function nomeProprio(txt){
+ let x=String(txt||'').replace(/^(o\s+)?(contato|nome)\s+((e|é|eh)\s+)?(o\s+)?/i,'').replace(/^(e|é|eh)\s+/i,'').replace(/[.,!?]+$/,'').trim();
+ const peq=new Set(['da','de','do','das','dos','e']);
+ return x.split(/\s+/).slice(0,5).map((p,i)=>(i>0&&peq.has(p.toLowerCase()))?p.toLowerCase():p.charAt(0).toUpperCase()+p.slice(1).toLowerCase()).join(' ');
+}
+function salvar(){
+ const d=S.d,base=lerC();
+ const reg={cnpj:fmtCnpj(d.cnpj),razao:d.razao,fantasia:d.fant||'',situacao:d.sit||'',telefone:so(d.tel||''),email:d.email||'',endereco:d.end||'',cidadeUf:d.cid||'',cep:so(d.cep||''),tipo:d.tipo,contato:d.contato||'',criadoEm:new Date().toISOString()};
+ base[so(d.cnpj)]=reg;try{localStorage.setItem(KEY,JSON.stringify(base))}catch(e){}
+ return reg;
+}
+
+/* ---------- buscar e alterar cliente já cadastrado ---------- */
+const BUSCA=/\b(buscar|busca|procura|procurar|localizar|localiza|achar|acha|mostrar|mostra|consultar|consulta)\b|\bdados d[oa]s?\b|\bquem (e|eh)\b/;
+const STOP=new Set('buscar busca procura procurar localizar localiza achar acha mostrar mostra consultar consulta ver cliente clientes o a os as do da dos das de com cnpj telefone whatsapp celular numero dados quem e eh um uma pra para por favor me meu minha qual onde esta esse essa'.split(' '));
+const termosBusca=t=>palavras(t).filter(w=>!STOP.has(w)&&!/^\d+$/.test(w));
+function filtraNome(lista,t){
+ const T=termosBusca(t);if(!T.length)return [];
+ return lista.map(c=>{const alvo=palavras([c.razao,c.fantasia,c.contato].join(' '));const ok=T.every(w=>alvo.some(a=>a.includes(w)));return ok?{c,score:T.filter(w=>alvo.includes(w)).length}:null})
+  .filter(Boolean).sort((a,b)=>b.score-a.score).map(x=>x.c);
+}
+function buscaClientes(txt){
+ const lista=Object.values(lerC());
+ const N=so(preNorm(txt));
+ if(N.length>=14){const f=lista.filter(x=>so(x.cnpj)===N.slice(0,14));if(f.length)return f}
+ if(N.length>=6)return lista.filter(x=>so(x.cnpj).includes(N)||so(x.telefone).includes(N));
+ return filtraNome(lista,txt);
+}
+function fichaCli(c){
+ return '<div class="nome">'+NOME+'</div><div class="ficha">'+
+  '<div><b>Razão social</b> '+esc(c.razao||'—')+'</div>'+
+  (c.fantasia?'<div><b>Fantasia</b> '+esc(c.fantasia)+'</div>':'')+
+  '<div><b>CNPJ</b> '+esc(c.cnpj||'—')+'</div>'+
+  '<div><b>Situação</b> '+esc(c.situacao||'—')+'</div>'+
+  '<div><b>Cidade/UF</b> '+esc(c.cidadeUf||'—')+'</div>'+
+  '<div><b>WhatsApp</b> '+esc(c.telefone?fmtTel(c.telefone):'—')+'</div>'+
+  '<div><b>Tipo</b> '+esc(c.tipo||'—')+'</div>'+
+  '<div><b>Contato</b> '+esc(c.contato||'—')+'</div></div>';
+}
+async function mostraCli(c){
+ S.sel=c;S.etapa='cli';
+ bolha('bot av',fichaCli(c));
+ await diz('O que quer fazer com ele? Pode dizer: mudar telefone, mudar tipo ou mudar contato.',null,{fala:'Achei. O que quer fazer?'});
+}
+async function executaBusca(txt){
+ const res=buscaClientes(txt);
+ S.d={};S.sel=null;S.lista=null;S.alt=null;
+ if(!res.length){S.etapa='busca_vazia';await diz('Não achei nenhum cliente com isso. Quer cadastrar um novo?',null,{fala:'Não achei. Quer cadastrar?'});return}
+ if(res.length===1){await mostraCli(res[0]);return}
+ S.lista=res.slice(0,5);S.etapa='escolhe';
+ bolha('bot av','<div class="nome">'+NOME+'</div>'+S.lista.map((c,i)=>(i+1)+') '+esc(c.razao)+(c.cidadeUf?' — '+esc(c.cidadeUf):'')+(c.tipo?' ('+esc(c.tipo)+')':'')).join('<br>'));
+ await diz('Achei '+res.length+' clientes'+(res.length>5?' (mostrando 5)':'')+'. Qual deles? Diga o número ou o nome.',null,{fala:'Achei '+res.length+'. Qual deles?'});
+}
+function escolheDaLista(t){
+ const ord={primeiro:0,primeira:0,um:0,'1':0,segundo:1,segunda:1,dois:1,'2':1,terceiro:2,terceira:2,tres:2,'3':2,quarto:3,quatro:3,'4':3,quinto:4,cinco:4,'5':4};
+ for(const w of palavras(t)){if(w in ord&&ord[w]<S.lista.length)return S.lista[ord[w]]}
+ const r=filtraNome(S.lista,t);return r.length===1?r[0]:null;
+}
+const CAMPO_NOME={telefone:'WhatsApp',tipo:'Tipo',contato:'Contato'};
+async function propoe(campo,novo){
+ const de=S.sel[campo]||'';
+ S.alt={campo,novo};S.etapa='confirma_alt';
+ const f=v=>campo==='telefone'?(v?fmtTel(v):'—'):(v||'—');
+ bolha('bot av','<div class="nome">'+NOME+'</div><b>'+CAMPO_NOME[campo]+'</b><br>antes: '+esc(f(de))+'<br>depois: <b>'+esc(f(novo))+'</b>');
+ await diz('Confirma a mudança? Diga "confirmar" ou "cancelar".',null,{fala:'Confirma a mudança?'});
+}
+function aplicaAlt(){
+ const {campo,novo}=S.alt,base=lerC(),k=so(S.sel.cnpj),c=base[k];
+ const de=c[campo];c[campo]=novo;base[k]=c;
+ try{localStorage.setItem(KEY,JSON.stringify(base))}catch(e){}
+ try{const h=JSON.parse(localStorage.getItem('teste_hist_th')||'[]');h.push({quando:new Date().toISOString(),cnpj:c.cnpj,campo,de,para:novo});localStorage.setItem('teste_hist_th',JSON.stringify(h))}catch(e){}
+ S.sel=c;
+}
+
+/* recebe o que você falou/escreveu */
+async function trata(txt){
+ const t=norm(txt);
+ if(!t)return;
+ if(/\b(cancel|cancela|cancelar|deixa pra la|esquece|desisti|pare)\b/.test(t)&&S.etapa!=='inicio'){
+  reset();await diz('Tudo bem, cancelei. Quando quiser, é só me chamar.',null,{fala:'Cancelei.'});return}
+ if(['inicio','cli','escolhe','busca_vazia'].includes(S.etapa)&&BUSCA.test(t)){await executaBusca(txt);return}
+ const r=interpretar(txt);
+ const d=S.d;
+ switch(S.etapa){
+  case 'busca_vazia':{
+   if(/\b(sim|quero|cadastr|cadastra|pode)\b/.test(t)){reset();await avanca();return}
+   reset();await diz('Tudo bem.',null,{fala:'Tudo bem.'});return}
+  case 'escolhe':{
+   const c=escolheDaLista(txt);
+   if(c){await mostraCli(c);return}
+   await diz('Não entendi qual. Diga o número (1, 2…) ou parte do nome.',null,{fala:'Qual? Diga o número.'});return}
+  case 'cli':{
+   if(/\b(nada|so isso|obrigado|obrigada|valeu|era so isso|encerrar|pode fechar)\b/.test(t)){reset();await diz('Certo. Quando precisar, é só chamar.',null,{fala:'Certo.'});return}
+   const alvo=/\b(telefone|whatsapp|zap|celular|numero)\b/.test(t)?'tel':/\b(tipo|lojista|revendedor|autonomo)\b/.test(t)?'tipo':/\bcontato\b/.test(t)?'contato':'';
+   if(alvo==='tel'){if(r.tel){await propoe('telefone',r.tel);return}S.etapa='novo_tel';await diz('Qual o novo WhatsApp?',null,{fala:'Qual o novo número?'});return}
+   if(alvo==='tipo'){const tp=extraiTipo(t);if(tp){await propoe('tipo',tp);return}S.etapa='novo_tipo';await diz('Ele passa a ser lojista ou revendedor?',null,{fala:'Lojista ou revendedor?'});return}
+   if(alvo==='contato'){const nm=nomeProprio(String(txt).replace(/^.*?\bcontato\b\s*(para|e|é|eh)?\s*/i,''));if(nm&&norm(nm)!==norm(txt)&&nm.length>1&&!/^(mudar|alterar|trocar)/i.test(nm)){await propoe('contato',nm);return}S.etapa='novo_contato';await diz('Qual o nome do novo contato?',null,{fala:'Qual o nome do contato?'});return}
+   await diz('Posso mudar o telefone, o tipo ou o contato. Ou diga "buscar cliente" e o nome para outro cliente.',null,{fala:'Mudar telefone, tipo ou contato?'});return}
+  case 'novo_tel':{if(r.tel){await propoe('telefone',r.tel);return}await diz('Não entendi o número. Diga com DDD.',null,{fala:'Diga com DDD.'});return}
+  case 'novo_tipo':{const tp=extraiTipo(t);if(tp){await propoe('tipo',tp);return}await diz('Diga "lojista" ou "revendedor".',null,{fala:'Lojista ou revendedor?'});return}
+  case 'novo_contato':{const nm=nomeProprio(txt);if(nm){await propoe('contato',nm);return}await diz('Não entendi o nome.',null,{fala:'Qual o nome?'});return}
+  case 'confirma_alt':{
+   if(/\b(confirm|confirma|confirmar|pode|sim|isso|certo|grava|ok|fechou|positivo)\b/.test(t)&&!/\b(nao|não)\b/.test(t)){
+    aplicaAlt();S.etapa='cli';
+    bolha('bot ok','<div class="nome">'+NOME+'</div>✅ Atualizado (e registrei no histórico).');
+    await diz('Mais alguma coisa com esse cliente?',null,{fala:'Pronto. Mais alguma coisa?'});return}
+   await diz('Diga "confirmar" ou "cancelar".',null,{fala:'Confirmar ou cancelar?'});return}
+  case 'inicio':{
+   if(r.intencao==='venda'||r.intencao==='pagar'||r.intencao==='receber'){
+    const n={venda:'uma venda',pagar:'uma conta a pagar',receber:'uma conta a receber'}[r.intencao];
+    await diz('Entendi que é '+n+'. Isso eu ainda não sei fazer. Por enquanto só cuido de clientes.');return}
+   if(r.intencao!=='cliente'){
+    await diz('Oi! Por enquanto eu cuido de clientes. Diga, por exemplo: "cadastrar cliente" e o CNPJ, ou "buscar cliente" e o nome.');return}
+   if(r.tel)d.tel=r.tel;
+   if(r.tipo)d.tipo=r.tipo;
+   if(r.contato)d.contato=r.contato;
+   if(r.cnpj){
+    if(!cnpjValido(r.cnpj)){d.tel=d.tel||'';await diz('O CNPJ que entendi foi '+fmtCnpj(r.cnpj)+', e ele não é válido. Provavelmente errei um número. Pode repetir?');S.etapa='cnpj';return}
+    await buscaCnpj(r.cnpj);return}
+   const N0=so(preNorm(txt));
+   if(!r.tel&&N0.length>=4&&N0.length<14){d.parc=N0;S.etapa='cnpj';await diz('Entendi '+N0.length+' números: '+N0+'. Continue de onde parou.',null,{fala:'Continue.'});return}
+   await avanca();return}
+  case 'cnpj':{
+   if(!r.cnpj){
+    const N=so(preNorm(txt));
+    if(N.length){
+     const P=d.parc||'';
+     const novo=(P&&!N.startsWith(P.slice(0,4)))?P+N:N; /* se recomeçou do início, troca; senão soma */
+     if(novo.length>=14){const c14=novo.slice(0,14);d.parc='';
+      if(!cnpjValido(c14)){await diz('O CNPJ que entendi foi '+fmtCnpj(c14)+', e ele não é válido. Pode repetir?');return}
+      await buscaCnpj(c14);return}
+     d.parc=novo;
+     await diz('Entendi '+novo.length+' números: '+novo+'. Continue de onde parou.',null,{fala:'Continue.'});return}
+    await diz('Não achei os números do CNPJ. Pode falar?',null,{fala:'Pode falar o CNPJ.'});return}
+   if(!cnpjValido(r.cnpj)){await diz('O CNPJ que entendi foi '+fmtCnpj(r.cnpj)+', e ele não é válido. Pode repetir?');return}
+   if(r.tel&&!d.tel)d.tel=r.tel;if(r.tipo&&!d.tipo)d.tipo=r.tipo;
+   await buscaCnpj(r.cnpj);return}
+  case 'razao':{d.razao=nomeProprio(txt);await avanca();return}
+  case 'tel':{
+   if(/\b(esse|mesmo|pode ser|usa|usar|isso)\b/.test(t)&&d.telReceita&&!r.tel){d.tel=d.telReceita;await avanca();return}
+   if(/\b(pular|pula|nao|sem|nenhum|nao tem)\b/.test(t)&&!r.tel){d.telPulado=true;await avanca();return}
+   if(r.tel){d.tel=r.tel;await avanca();return}
+   await diz('Não entendi o telefone. Diga o número com DDD, ou "pular".');return}
+  case 'tipo':{
+   const tp=extraiTipo(t);
+   if(tp){d.tipo=tp;await avanca();return}
+   await diz('Não entendi. Diga "lojista" ou "revendedor".');return}
+  case 'contato':{
+   if(/^(nao|não|nenhum|pular|sem contato|sem|ninguem)\b/.test(t)){d.contato='';await avanca();return}
+   d.contato=nomeProprio(txt);await avanca();return}
+  case 'confirma':{
+   if(/\b(confirm|confirma|confirmar|pode|sim|isso|certo|grava|gravar|cadastra|cadastrar|ok|fechou|positivo)\b/.test(t)&&!/\b(nao|não)\b/.test(t)){
+    const reg=salvar();
+    bolha('bot ok','<div class="nome">'+NOME+'</div>✅ Pronto! <b>'+esc(reg.razao)+'</b> foi cadastrado (neste teste, só guardado no seu navegador).');
+    await falar('Pronto, cadastrado.');reset();return}
+   // correções por voz
+   let mudou=false;
+   if(r.tel){d.tel=r.tel;mudou=true}
+   const tp=extraiTipo(t);if(tp){d.tipo=tp;mudou=true}
+   if(r.contato){d.contato=r.contato;mudou=true}
+   if(mudou){S.etapa='inicio';await avanca();return}
+   await diz('Diga "confirmar" para cadastrar, "cancelar" para desistir, ou me diga o que corrigir (telefone, tipo ou contato).');return}
+ }
+}
+
+async function entrada(txt,lido){
+ txt=String(txt||'').trim();if(!txt||ocupado)return;
+ ocupado=true;
+ try{speechSynthesis.cancel()}catch(e){}
+ eu(txt,lido);
+ try{await trata(txt)}catch(e){console.error(e);await diz('Tive um problema aqui: '+(e.message||e))}
+ ocupado=false;
+ if(conversa&&!ouvindo)ouvir(true);
+}
+
+/* ---------- voz (microfone) ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null,ouvindo=false,conversa=false,buf='',tBuf=null;
+/* quanto esperar depois que você para de falar: números pedem bem mais, porque você pausa entre os grupos */
+function totalDigitos(){ /* dígitos já entendidos neste CNPJ (parte guardada + o que acabou de ouvir) */
+ const N=so(preNorm(buf)),P=(S.etapa==='cnpj'&&S.d.parc)||'';
+ return (P&&!N.startsWith(P.slice(0,4)))?P.length+N.length:N.length;
+}
+/* o reconhecimento às vezes repete o que já tinha dito somando o novo ("59" depois "59654 950"): nesse caso troca, não soma */
+function junta(a,b){const da=so(preNorm(a)),db=so(preNorm(b));return(da&&db.startsWith(da))?b:(a+' '+b).trim()}
+function espera(){
+ const b=norm(buf),d=totalDigitos();
+ const buscaCtx=['inicio','cli','escolhe'].includes(S.etapa)&&/(buscar|busca|procura|localiz|achar|acha|consult|mostr)/.test(b);
+ const telCtx=S.etapa==='tel'||S.etapa==='novo_tel'||/telefone|whatsapp|zap|celular/.test(b);
+ const cnpjCtx=S.etapa==='cnpj'||(S.etapa==='inicio'&&/cnpj|cadastr|cliente/.test(b))||(buscaCtx&&/cnpj/.test(b));
+ if(d>=14)return 300;                                   // número completo: responde logo
+ if(buscaCtx&&!/cnpj/.test(b)&&!telCtx)return d>=1?1800:900;
+ if(cnpjCtx&&!telCtx)return d>=1?4000:1100;             // CNPJ pela metade: espera você continuar
+ if(telCtx||buscaCtx)return d>=10?500:(d>=1?2500:900);  // telefone
+ return 650;
+}
+function envia(){
+ const t=tiraEco(buf.trim());
+ buf='';$('#txt').value='';
+ if(t)entrada(t); /* se era só eco da voz dele, descarta */
+}
+function ouvir(auto){
+ if(!SR){if(!auto)bolha('bot av','<div class="nome">'+NOME+'</div>Este navegador não tem voz. Use o microfone do teclado na caixa de baixo e toque em Enviar.');return}
+ if(ouvindo)return;
+ try{
+  rec=new SR();rec.lang='pt-BR';rec.interimResults=true;rec.continuous=true;
+  rec.onstart=()=>{ouvindo=true;$('#mic').classList.add('on');$('#mic').textContent='⏹'};
+  rec.onresult=e=>{
+   if(!podeOuvir()){buf='';clearTimeout(tBuf);return} /* enquanto ele fala, ignora (evita ouvir a própria voz) */
+   let f='',p='';
+   for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i][0].transcript;if(e.results[i].isFinal)f+=x+' ';else p+=x+' '}
+   if(f)buf=junta(buf,f.trim());
+   $('#txt').value=(buf+' '+p).trim();
+   clearTimeout(tBuf);
+   if(buf&&!p)tBuf=setTimeout(envia,espera());
+  };
+  rec.onerror=e=>{
+   if(e.error==='not-allowed'||e.error==='service-not-allowed'){conversa=false;marcaMic();bolha('bot av','<div class="nome">'+NOME+'</div>O microfone está bloqueado. Libere o microfone no cadeado da barra de endereço, ou escreva na caixa.')}
+   else if(e.error==='network'){if(!window.__avRede){window.__avRede=1;bolha('bot av','<div class="nome">'+NOME+'</div>O serviço de voz do navegador oscilou (rede). Vou continuar tentando. Se repetir muito, use o Chrome.')}}
+   else if(e.error==='no-speech'||e.error==='aborted'){}
+   else bolha('bot av','<div class="nome">'+NOME+'</div>Erro no microfone: '+esc(e.error));
+  };
+  rec.onend=()=>{ouvindo=false;$('#mic').classList.remove('on');$('#mic').textContent='🎤';
+   if(conversa)setTimeout(()=>ouvir(true),200); /* o navegador desliga de tempos em tempos: religa sozinho */};
+  rec.start();
+ }catch(e){ouvindo=false}
+}
+let saudou=false;
+function marcaMic(){const m=$('#mic');m.title=conversa?'Conversa ligada (toque para pausar)':'Falar';m.style.outline=conversa?'3px solid #15803d':'none'}
+$('#mic').onclick=async()=>{
+ if(conversa){conversa=false;marcaMic();clearTimeout(tBuf);buf='';try{rec.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}return}
+ conversa=true;marcaMic();
+ try{speechSynthesis.cancel()}catch(e){}
+ ouvir(false); /* liga o microfone já, antes da saudação, para não perder o começo da sua fala */
+ if(!saudou){
+  saudou=true;
+  if(voz&&'speechSynthesis' in window)falar('Oi Thalis, sou o seu gestor. O que vamos lançar?');
+ }
+};
+$('#env').onclick=()=>{const t=$('#txt').value;$('#txt').value='';entrada(t)};
+$('#txt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#env').click()}});
+const VELS=[[1.35,'⚡ Rápida'],[1.7,'⚡⚡ Muito rápida'],[1.05,'Normal']];let iv=0;
+$('#tgVel').onclick=()=>{iv=(iv+1)%VELS.length;vel=VELS[iv][0];$('#tgVel').textContent=VELS[iv][1];falar('Assim está bom?')};
+$('#tgVoz').onclick=()=>{voz=!voz;$('#tgVoz').textContent=voz?'🔊 Voz ligada':'🔇 Voz desligada';if(!voz){try{speechSynthesis.cancel()}catch(e){}}};
+$('#zerar').onclick=()=>{if(confirm('Apagar os clientes de teste deste navegador?')){localStorage.removeItem(KEY);bolha('bot','<div class="nome">'+NOME+'</div>Pronto, apaguei os clientes de teste.')}};
+
+/* abertura */
+bolha('bot','<div class="nome">'+NOME+'</div>Oi, Thalis! Eu sou o seu gestor. 👋\nToque no microfone e me diga, por exemplo:\n“cadastrar cliente” e o CNPJ,\nou “buscar cliente” e o nome.\n(Por enquanto eu cadastro, busco e altero clientes.)');
+window.__entrada=entrada;window.__S=()=>S;
+</script>
+</body>
+</html>
